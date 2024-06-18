@@ -64,51 +64,6 @@ function cardHeight() {
 
 cardHeight();
 
-window.addEventListener('resize', function() {
-    cardHeight();
-});
-
-// let strokeEquipment = document.querySelectorAll('.slide-equipment');
-// let arrayStroke = [];
-// let equipmentHeight = 0;
-
-// strokeEquipment.forEach(item => {
-//     for(let i = 0; i < item.children.length; i++) {
-//         item.children[i].dataset.strokeNumber = i + 1;
-//     }
-// });
-
-// document.querySelectorAll('[data-stroke-number]').forEach(item => {
-//     arrayStroke.push(item.dataset.strokeNumber);
-// });
-
-// const strokeNums = [...new Set(arrayStroke)];
-
-
-// strokeNums.forEach(item => {
-//     const elements = document.querySelectorAll(`[data-stroke-number="${item}"]`);
-//     elements.forEach(element => {
-//         console.log(element);
-//     });
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 let strokeEquipment = document.querySelectorAll('.slide-equipment');
 let equipmentParametr = document.querySelectorAll('.equipment__subtitle');
 let arrayStroke = [];
@@ -116,38 +71,47 @@ let equipmentHeight = 0;
 
 // Присваиваем каждому элементу data-атрибут strokeNumber
 
-for(let i = 0; i < equipmentParametr.length; i++) {
-    equipmentParametr[i].dataset.strokeNumber = i + 1;
-}
-
-strokeEquipment.forEach(item => {
-    for(let i = 0; i < item.children.length; i++) {
-        item.children[i].dataset.strokeNumber = i + 1;
+function parametrHight() {
+    for(let i = 0; i < equipmentParametr.length; i++) {
+        equipmentParametr[i].dataset.strokeNumber = i + 1;
     }
-});
-
-// Собираем все уникальные значения strokeNumber
-document.querySelectorAll('[data-stroke-number]').forEach(item => {
-    arrayStroke.push(item.dataset.strokeNumber);
-});
-
-const strokeNums = [...new Set(arrayStroke)];
-
-// Для каждой строки находим максимальную высоту элемента и применяем её ко всем элементам строки
-strokeNums.forEach(item => {
-    const elements = document.querySelectorAll(`[data-stroke-number="${item}"]`);
-    let maxHeight = 0;
-
-    // Находим максимальную высоту среди элементов строки
-    elements.forEach(element => {
-        const elementHeight = element.offsetHeight;
-        if (elementHeight > maxHeight) {
-            maxHeight = elementHeight;
+    
+    strokeEquipment.forEach(item => {
+        for(let i = 0; i < item.children.length; i++) {
+            item.children[i].dataset.strokeNumber = i + 1;
         }
     });
-
-    // Устанавливаем максимальную высоту для всех элементов строки
-    elements.forEach(element => {
-        element.style.minHeight = `${maxHeight}px`;
+    
+    // Собираем все уникальные значения strokeNumber
+    document.querySelectorAll('[data-stroke-number]').forEach(item => {
+        arrayStroke.push(item.dataset.strokeNumber);
     });
+    
+    const strokeNums = [...new Set(arrayStroke)];
+    
+    // Для каждой строки находим максимальную высоту элемента и применяем её ко всем элементам строки
+    strokeNums.forEach(item => {
+        const elements = document.querySelectorAll(`[data-stroke-number="${item}"]`);
+        let maxHeight = 0;
+    
+        // Находим максимальную высоту среди элементов строки
+        elements.forEach(element => {
+            const elementHeight = element.offsetHeight;
+            if (elementHeight > maxHeight) {
+                maxHeight = elementHeight;
+            }
+        });
+    
+        // Устанавливаем максимальную высоту для всех элементов строки
+        elements.forEach(element => {
+            element.style.minHeight = `${maxHeight}px`;
+        });
+    });
+}
+
+parametrHight();
+
+window.addEventListener('resize', function() {
+    cardHeight();
+    parametrHight();
 });
